@@ -33,11 +33,11 @@ network.add(layers.Dense(512, activation=activations.relu))
 
 network.add(layers.Dense(10, activation=activations.softmax))
 
-# network.compile(optimizer=optimizers.rmsprop(),
-#                 loss=losses.categorical_crossentropy,
-#                 metrics=['accuracy'])
+network.compile(optimizer=optimizers.rmsprop(),
+                loss=losses.categorical_crossentropy,
+                metrics=['accuracy'])
 
-# network.fit(train_images, train_labels, epochs=5, batch_size=128)
+network.fit(train_images, train_labels, epochs=5, batch_size=128)
 
-# test_loss, test_acc = network.evaluate(test_images, test_lables)
-# print('test_loss: %s, test_acc: %s' % (test_loss, test_acc))
+test_loss, test_acc = network.evaluate(test_images, test_lables)
+print('test_loss: %s, test_acc: %s' % (test_loss, test_acc))
