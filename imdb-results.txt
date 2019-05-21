@@ -1,0 +1,27 @@
+16,16,1, loss=binary_crossentropy, activation=relu
+loss: 0.1669 - acc: 0.9409
+[0.2945871884632111, 0.8832] 
+
+16,1, loss=binary_crossentropy, activation=relu
+loss: 0.1781 - acc: 0.9392
+[0.2833905592155457, 0.88576]
+
+16,16,16,1, loss=binary_crossentropy, activation=relu
+loss: 0.1624 - acc: 0.9422
+[0.3096425970363617, 0.88148]
+
+32,32,1, loss=binary_crossentropy, activation=relu
+loss: 0.1579 - acc: 0.9422
+[0.30951161612033845, 0.87988]
+
+64,64,1, loss=binary_crossentropy, activation=relu
+loss: 0.1472 - acc: 0.9450
+[0.31961912371635437, 0.8794]
+
+16,16,1, loss=mse, activation=relu
+loss: 0.0473 - acc: 0.9446
+[0.08612233501434326, 0.88292]
+
+16,16,1, loss=binary_crossentropy, activation=tanh
+loss: 0.1497 - acc: 0.9467
+[0.3208019986176491, 0.87768]

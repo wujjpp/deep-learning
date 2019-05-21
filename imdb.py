@@ -5,7 +5,6 @@ from keras import activations
 from keras import optimizers
 from keras import losses
 import numpy as np
-import matplotlib.pyplot as plt
 
 (train_data, train_labels), (test_data,
                              test_labels) = imdb.load_data(num_words=10000)
@@ -47,30 +46,7 @@ model.compile(optimizer=optimizers.RMSprop(lr=0.001),
 
 model.summary()
 
-history = model.fit(x_train, y_train, epochs=4, batch_size=512)
-
-history_dict = history.history
-print(history_dict.keys())
-
-train_loss_values = history_dict['loss']
-
-train_acc_values = history_dict['acc']
-
-epochs = range(1, len(train_loss_values) + 1)
-
-plt.figure()
-plt.plot(epochs, train_loss_values, 'bo', label="Training loss")
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-
-plt.figure()
-plt.plot(epochs, train_acc_values, 'ro', label="Training acc")
-plt.xlabel('Epochs')
-plt.ylabel('Accuracy')
-plt.legend()
-
-plt.show()
+model.fit(x_train, y_train, epochs=4, batch_size=512)
 
 results = model.evaluate(x_test, y_test)
 print(results)
