@@ -39,9 +39,9 @@ network.compile(optimizer=optimizers.rmsprop(),
 
 # network.summary()
 
-# network.fit(train_images, train_labels, epochs=5, batch_size=128)
+network.fit(train_images, train_labels, epochs=5, batch_size=128)
 
-# network.summary()
+network.summary()
 
-# test_loss, test_acc = network.evaluate(test_images, test_lables)
-# print('test_loss: %s, test_acc: %s' % (test_loss, test_acc))
+test_loss, test_acc = network.evaluate(test_images, test_lables)
+print('test_loss: %s, test_acc: %s' % (test_loss, test_acc))
