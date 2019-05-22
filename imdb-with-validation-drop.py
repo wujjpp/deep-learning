@@ -120,6 +120,7 @@ validation_loss_with_drop = history_with_drop_dict['val_loss']
 
 xaxis = range(1, epochs + 1)
 
+# plt.plot: https://matplotlib.org/api/_as_gen/matplotlib.pyplot.plot.html
 plt.figure()
 plt.plot(xaxis, validation_loss_original, 'g:', label="Orignal model")
 plt.plot(xaxis,
