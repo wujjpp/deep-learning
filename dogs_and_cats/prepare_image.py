@@ -1,23 +1,9 @@
 import os
 import shutil
-
-original_dataset_dir = '/home/jp/deep-learning/dogs_and_cats/local_data/kaggle_original_data'
-base_dir = '/home/jp/deep-learning/dogs_and_cats/local_data'
-
-train_dir = os.path.join(base_dir, 'train')
-train_dogs_dir = os.path.join(train_dir, 'dogs')
-train_cats_dir = os.path.join(train_dir, 'cats')
-
-validation_dir = os.path.join(base_dir, 'validation')
-validation_dogs_dir = os.path.join(validation_dir, 'dogs')
-validation_cats_dir = os.path.join(validation_dir, 'cats')
-
-test_dir = os.path.join(base_dir, 'test')
-test_dogs_dir = os.path.join(test_dir, 'dogs')
-test_cats_dir = os.path.join(test_dir, 'cats')
+from dogs_and_cats.dirs import original_dataset_dir, train_dir, train_dogs_dir, train_cats_dir, validation_dir, validation_dogs_dir, validation_cats_dir, test_dir, test_dogs_dir, test_cats_dir
 
 
-def mkdir_if_not_exists(path, remove_first=False):
+def mkdir_if_not_exists(path, remove_first=True):
     if not os.path.exists(path):
         os.mkdir(path)
     elif remove_first:
