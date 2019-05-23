@@ -14,10 +14,10 @@ def build_model_1():
         layers.Conv2D(32, (3, 3),
                       activation=activations.relu,
                       input_shape=(28, 28, 1)))
-    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.MaxPooling2D(pool_size=(2, 2)))
 
     model.add(layers.Conv2D(64, (3, 3), activation=activations.relu))
-    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.MaxPooling2D(pool_size=(2, 2)))
 
     model.add(layers.Flatten())
     model.add(layers.Dense(64, activation=activations.relu))
@@ -49,6 +49,8 @@ def build_model_2():
 model = build_model_1()
 
 model.summary()
+
+exit()
 
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
