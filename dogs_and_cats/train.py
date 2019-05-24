@@ -41,45 +41,55 @@ test_datagen = ImageDataGenerator(rescale=1. / 255)
 train_generator = train_datagen.flow_from_directory(train_dir,
                                                     target_size=(150, 150),
                                                     batch_size=20,
+                                                    classes=['dogs', 'cats'],
                                                     class_mode='binary')
 
 validation_generator = validation_datagen.flow_from_directory(
-    validation_dir, target_size=(150, 150), batch_size=20, class_mode='binary')
+    validation_dir,
+    target_size=(150, 150),
+    batch_size=20,
+    classes=['dogs', 'cats'],
+    class_mode='binary')
 
 test_generator = test_datagen.flow_from_directory(test_dir,
                                                   target_size=(150, 150),
                                                   batch_size=20,
+                                                  classes=['dogs', 'cats'],
                                                   class_mode='binary')
 
-history = model.fit_generator(train_generator,
-                              steps_per_epoch=100,
-                              epochs=30,
-                              validation_data=validation_generator,
-                              validation_steps=50)
+for train_batch, labels_batch in train_generator:
+    print(train_batch.shape)
+    print(labels_batch.shape)
 
-history_dict = history.history
-print(history_dict.keys())
+# history = model.fit_generator(train_generator,
+#                               steps_per_epoch=100,
+#                               epochs=30,
+#                               validation_data=validation_generator,
+#                               validation_steps=50)
 
-train_loss_values = history_dict['loss']
-validation_loss_values = history_dict['val_loss']
+# history_dict = history.history
+# print(history_dict.keys())
 
-train_acc_values = history_dict['acc']
-validation_acc_value = history_dict['val_acc']
+# train_loss_values = history_dict['loss']
+# validation_loss_values = history_dict['val_loss']
 
-epochs = range(1, len(train_loss_values) + 1)
+# train_acc_values = history_dict['acc']
+# validation_acc_value = history_dict['val_acc']
 
-plt.figure()
-plt.plot(epochs, train_loss_values, 'bo', label="Training loss")
-plt.plot(epochs, validation_loss_values, 'b', label="Validation loss")
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
+# epochs = range(1, len(train_loss_values) + 1)
 
-plt.figure()
-plt.plot(epochs, train_acc_values, 'ro', label="Training acc")
-plt.plot(epochs, validation_acc_value, 'r', label="Validation acc")
-plt.xlabel('Epochs')
-plt.ylabel('Accuracy')
-plt.legend()
+# plt.figure()
+# plt.plot(epochs, train_loss_values, 'bo', label="Training loss")
+# plt.plot(epochs, validation_loss_values, 'b', label="Validation loss")
+# plt.xlabel('Epochs')
+# plt.ylabel('Loss')
+# plt.legend()
 
-plt.show()
+# plt.figure()
+# plt.plot(epochs, train_acc_values, 'ro', label="Training acc")
+# plt.plot(epochs, validation_acc_value, 'r', label="Validation acc")
+# plt.xlabel('Epochs')
+# plt.ylabel('Accuracy')
+# plt.legend()
+
+# plt.show()

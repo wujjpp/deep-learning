@@ -1,6 +1,6 @@
 import os
 import shutil
-from dogs_and_cats.dirs import original_dataset_dir, train_dir, train_dogs_dir, train_cats_dir, validation_dir, validation_dogs_dir, validation_cats_dir, test_dir, test_dogs_dir, test_cats_dir
+from dirs import base_dir, original_dataset_dir, train_dir, train_dogs_dir, train_cats_dir, validation_dir, validation_dogs_dir, validation_cats_dir, test_dir, test_dogs_dir, test_cats_dir
 
 
 def mkdir_if_not_exists(path, remove_first=True):
@@ -13,7 +13,7 @@ def mkdir_if_not_exists(path, remove_first=True):
 
 # prepare dirs
 for path in [
-        train_dir, train_dogs_dir, train_cats_dir, validation_dir,
+        base_dir, train_dir, train_dogs_dir, train_cats_dir, validation_dir,
         validation_dogs_dir, validation_cats_dir, test_dir, test_dogs_dir,
         test_cats_dir
 ]:

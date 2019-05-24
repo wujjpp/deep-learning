@@ -1,6 +1,6 @@
 import os
 
-original_dataset_dir = '/home/jp/deep-learning/dogs_and_cats/local_data/kaggle_original_data/train'
+original_dataset_dir = '/home/jp/workspace/kaggle_data/dogs_vs_cats/train'
 base_dir = '/home/jp/deep-learning/dogs_and_cats/local_data'
 
 train_dir = os.path.join(base_dir, 'train')
