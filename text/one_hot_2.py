@@ -11,4 +11,5 @@ print(sequences)
 
 one_hot_results = tokenizer.texts_to_matrix(samples)
 print(one_hot_results.shape)
-print(one_hot_results[0])
+for l in one_hot_results:
+    print(l)

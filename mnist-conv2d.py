@@ -50,8 +50,6 @@ model = build_model_1()
 
 model.summary()
 
-exit()
-
 (train_images, train_labels), (test_images, test_labels) = mnist.load_data()
 
 train_images = train_images.reshape((len(train_images), 28, 28, 1))
@@ -71,7 +69,7 @@ data_train_labels = train_labels[val_samples:]
 val_images = train_images[:val_samples]
 val_labels = train_labels[:val_samples]
 
-model.compile(optimizer=optimizers.rmsprop(),
+model.compile(optimizer=optimizers.Adam(),
               loss=losses.categorical_crossentropy,
               metrics=['accuracy'])
 

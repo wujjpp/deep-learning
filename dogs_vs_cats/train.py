@@ -4,6 +4,7 @@ from keras import optimizers
 from keras import losses
 from keras import activations
 from keras.preprocessing.image import ImageDataGenerator
+from keras.callbacks import TensorBoard
 from config import train_dir, validation_dir
 from config import train_sample_size, validation_sample_size, test_sample_size
 import matplotlib.pyplot as plt
@@ -20,13 +21,22 @@ def build_model():
                       input_shape=(150, 150, 3)))
     model.add(layers.MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(layers.Conv2D(filters=64, kernel_size=(3, 3), activation=activations.relu))
+    model.add(
+        layers.Conv2D(filters=64,
+                      kernel_size=(3, 3),
+                      activation=activations.relu))
     model.add(layers.MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(layers.Conv2D(filters=128, kernel_size=(3, 3), activation=activations.relu))
+    model.add(
+        layers.Conv2D(filters=128,
+                      kernel_size=(3, 3),
+                      activation=activations.relu))
     model.add(layers.MaxPooling2D(pool_size=(2, 2)))
 
-    model.add(layers.Conv2D(filters=128, kernel_size=(3, 3), activation=activations.relu))
+    model.add(
+        layers.Conv2D(filters=128,
+                      kernel_size=(3, 3),
+                      activation=activations.relu))
     model.add(layers.MaxPooling2D(pool_size=(2, 2)))
 
     model.add(layers.Flatten())
@@ -35,9 +45,10 @@ def build_model():
 
     model.summary()
 
-    model.compile(optimizer=optimizers.RMSprop(lr=1e-4),
-                  loss=losses.binary_crossentropy,
-                  metrics=['accuracy'])
+    model.compile(
+        optimizer=optimizers.Adam(),  # optimizers.rmsprop(lr=1e-4),
+        loss=losses.binary_crossentropy,
+        metrics=['accuracy'])
     return model
 
 
@@ -56,19 +67,39 @@ validation_generator = validation_datagen.flow_from_directory(
     batch_size=batch_size,
     class_mode='binary')
 
-for train_batch, labels_batch in train_generator:
+for train_batch, labels_batch in validation_generator:
     print(train_batch.shape)
     print(labels_batch.shape)
+
+    # plt.figure(figsize=(10, 10))
+    # index = 0
+    # for img in train_batch:
+    #     index += 1
+    #     plt.subplot(4, 5, index)
+    #     plt.xticks([])
+    #     plt.yticks([])
+    #     plt.imshow(img)
+    #     plt.xlabel(labels_batch[index - 1])
+
+    # plt.show()
+
+    # print(train_batch[0].shape)
+    # print(train_batch[0])
     break
 
 model = build_model()
 
+callbacks = [TensorBoard(log_dir='my_log_dir')]
+
 history = model.fit_generator(
     train_generator,
-    steps_per_epoch=(train_sample_size * 2) // batch_size,
-    epochs=30,
+    steps_per_epoch=((train_sample_size * 2) // batch_size),
+    epochs=2,
     validation_data=validation_generator,
-    validation_steps=(validation_sample_size * 2) // batch_size)
+    validation_steps=((validation_sample_size * 2) // batch_size),
+    callbacks=callbacks)
+
+model.save('dogs_and_cats_small_1.h5')
 
 history_dict = history.history
 print(history_dict.keys())
