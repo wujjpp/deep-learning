@@ -28,8 +28,6 @@ def vectorize_sequences(sequences, dimension=10000):
 x_train = vectorize_sequences(train_data)
 x_test = vectorize_sequences(test_data)
 
-print(x_train[0])
-
 y_train = np.asarray(train_labels).astype('float32')
 y_test = np.asarray(test_labels).astype('float32')
 print(train_labels)
