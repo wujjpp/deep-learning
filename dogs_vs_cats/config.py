@@ -15,10 +15,17 @@ test_dir = os.path.join(base_dir, 'test')
 test_dogs_dir = os.path.join(test_dir, 'dogs')
 test_cats_dir = os.path.join(test_dir, 'cats')
 
+# small
 train_sample_size = 1000
 validation_sample_size = 500
 test_sample_size = 500
 
+# full
+# train_sample_size = 10000
+# validation_sample_size = 2000
+# test_sample_size = 500
+
+# 评估程序
 # train_sample_size = 80
 # validation_sample_size = 40
 # test_sample_size = 40

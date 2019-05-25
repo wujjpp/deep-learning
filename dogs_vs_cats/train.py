@@ -5,9 +5,12 @@ from keras import losses
 from keras import activations
 from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import TensorBoard
+from keras.callbacks import ModelCheckpoint
+from keras.callbacks import EarlyStopping
 from config import train_dir, validation_dir
 from config import train_sample_size, validation_sample_size, test_sample_size
-import matplotlib.pyplot as plt
+import os
+import re
 
 
 def build_model():
@@ -53,7 +56,16 @@ def build_model():
 
 
 batch_size = 20
+# train_datagen = ImageDataGenerator(rescale=1. / 255,
+#                                    rotation_range=40,
+#                                    width_shift_range=0.2,
+#                                    height_shift_range=0.2,
+#                                    shear_range=0.2,
+#                                    zoom_range=0.2,
+#                                    horizontal_flip=True)
+
 train_datagen = ImageDataGenerator(rescale=1. / 255)
+
 validation_datagen = ImageDataGenerator(rescale=1. / 255)
 
 train_generator = train_datagen.flow_from_directory(train_dir,
@@ -87,43 +99,46 @@ for train_batch, labels_batch in validation_generator:
     # print(train_batch[0])
     break
 
+
+def get_result_file_names():
+    # get max index
+    results_path = os.path.join(os.path.abspath('.'), 'results')
+    index = 0
+    for x in os.listdir(results_path):
+        matched = re.match(r'^run-(\d{4})$', x)
+        if matched:
+            cur = int(matched.group(1))
+            if cur > index:
+                index = cur
+    index += 1
+
+    # prepare dirs
+    log_dir = 'results/run-{0:0>4d}/logs'.format(index)
+    model_file_name = 'results/run-{0:0>4d}/model.h5'.format(index)
+    return log_dir, model_file_name
+
+
+log_dir, model_file_name = get_result_file_names()
+
 model = build_model()
 
-callbacks = [TensorBoard(log_dir='my_log_dir')]
+callbacks = [
+    # log
+    TensorBoard(log_dir=log_dir),
+    # save model if necessary
+    ModelCheckpoint(filepath=model_file_name,
+                    monitor='val_loss',
+                    save_best_only=True),
+    # early stop if acc is not improvement
+    EarlyStopping(monitor='acc', patience=5),
+    # early stop if val_loss is not improvement
+    EarlyStopping(monitor='val_loss', patience=5)
+]
 
-history = model.fit_generator(
-    train_generator,
-    steps_per_epoch=((train_sample_size * 2) // batch_size),
-    epochs=2,
-    validation_data=validation_generator,
-    validation_steps=((validation_sample_size * 2) // batch_size),
-    callbacks=callbacks)
-
-model.save('dogs_and_cats_small_1.h5')
-
-history_dict = history.history
-print(history_dict.keys())
-
-train_loss_values = history_dict['loss']
-validation_loss_values = history_dict['val_loss']
-
-train_acc_values = history_dict['acc']
-validation_acc_value = history_dict['val_acc']
-
-epochs = range(1, len(train_loss_values) + 1)
-
-plt.figure()
-plt.plot(epochs, train_loss_values, 'bo', label="Training loss")
-plt.plot(epochs, validation_loss_values, 'b', label="Validation loss")
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-
-plt.figure()
-plt.plot(epochs, train_acc_values, 'ro', label="Training acc")
-plt.plot(epochs, validation_acc_value, 'r', label="Validation acc")
-plt.xlabel('Epochs')
-plt.ylabel('Accuracy')
-plt.legend()
-
-plt.show()
+model.fit_generator(train_generator,
+                    steps_per_epoch=((train_sample_size * 2) // batch_size),
+                    epochs=100,
+                    validation_data=validation_generator,
+                    validation_steps=((validation_sample_size * 2) //
+                                      batch_size),
+                    callbacks=callbacks)
