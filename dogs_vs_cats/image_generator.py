@@ -38,4 +38,4 @@ for batch in datagen.flow(x, batch_size=1):
     if i % 10 == 0:
         break
 
-plt.show()
+# plt.show()

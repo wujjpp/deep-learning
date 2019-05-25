@@ -24,8 +24,8 @@ print('img_tensor.shape:', img_tensor.shape)
 
 img_tensor /= 255.  # convert to float
 
-plt.imshow(img_tensor[0])
-plt.show()
+# plt.imshow(img_tensor[0])
+# plt.show()
 
 # -----------------------------------------------------------
 
@@ -55,8 +55,8 @@ for layer, activation in zip(model.layers[:8], activations):
     for col in range(n_cols):
         for row in range(images_per_row):
             channel_image = activation[0, :, :, col * images_per_row + row]
-            # channel_image -= channel_image.mean()
-            # channel_image /= channel_image.std()
+            channel_image -= channel_image.mean()
+            channel_image /= (channel_image.std() + 1e-5)  # 做除法之前加上1e-5, 以防除以0
             channel_image *= 64
             channel_image += 128
             channel_image = np.clip(channel_image, 0, 255).astype('uint8')

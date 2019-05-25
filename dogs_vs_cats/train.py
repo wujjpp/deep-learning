@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from keras import models
 from keras import layers
 from keras import optimizers
@@ -7,8 +9,8 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import TensorBoard
 from keras.callbacks import ModelCheckpoint
 from keras.callbacks import EarlyStopping
-from config import train_dir, validation_dir
-from config import train_sample_size, validation_sample_size, test_sample_size
+from .config import train_dir, validation_dir
+from .config import train_sample_size, validation_sample_size, test_sample_size
 import os
 import re
 
