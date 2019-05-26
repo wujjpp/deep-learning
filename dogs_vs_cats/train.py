@@ -9,10 +9,10 @@ from keras.preprocessing.image import ImageDataGenerator
 from keras.callbacks import TensorBoard
 from keras.callbacks import ModelCheckpoint
 from keras.callbacks import EarlyStopping
-from .config import train_dir, validation_dir
-from .config import train_sample_size, validation_sample_size, test_sample_size
 import os
 import re
+from .config import train_dir, validation_dir
+from .config import train_sample_size, validation_sample_size, test_sample_size
 
 
 def build_model():

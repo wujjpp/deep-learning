@@ -8,12 +8,13 @@ for sample in samples:
         if word not in token_index:
             token_index[word] = len(token_index) + 1
 
-max_length = 10
+max_length = 15
 results = np.zeros(shape=(len(samples), max_length,
                           max(token_index.values()) + 1))
 
 for i, sample in enumerate(samples):
-    for j, word in list(enumerate(sample.split()))[:max_length]:
+    words = list(enumerate(sample.split()))[:max_length]
+    for j, word in words:
         index = token_index.get(word)
         results[i, j, index] = 1
 

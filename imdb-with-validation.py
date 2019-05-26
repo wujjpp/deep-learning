@@ -47,18 +47,26 @@ model.compile(optimizer=optimizers.RMSprop(lr=0.001),
 
 model.summary()
 
-x_validation = x_train[:10000]
-partial_x_train = x_train[10000:]
+# x_validation = x_train[:10000]
+# partial_x_train = x_train[10000:]
 
-y_validation = y_train[:10000]
-partial_y_train = y_train[10000:]
+# y_validation = y_train[:10000]
+# partial_y_train = y_train[10000:]
+
+# # 将训练数据分成2份，一份用于训练，一份用于检验, 找出合适的epochs值，之后再用完整的训练数据做训练
+# history = model.fit(partial_x_train,
+#                     partial_y_train,
+#                     epochs=20,
+#                     batch_size=512,
+#                     validation_data=(x_validation, y_validation))
+
 
 # 将训练数据分成2份，一份用于训练，一份用于检验, 找出合适的epochs值，之后再用完整的训练数据做训练
-history = model.fit(partial_x_train,
-                    partial_y_train,
+history = model.fit(x_train,
+                    y_train,
                     epochs=20,
                     batch_size=512,
-                    validation_data=(x_validation, y_validation))
+                    validation_split=0.2)
 
 history_dict = history.history
 print(history_dict.keys())
