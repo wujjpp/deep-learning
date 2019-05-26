@@ -44,11 +44,11 @@ model.compile(optimizer=optimizers.RMSprop(lr=0.001),
 
 model.summary()
 
-model.fit(x_train, y_train, epochs=4, batch_size=512)
+model.fit(x_train, y_train, epochs=4, batch_size=512, validation_split=0.5)
 
 results = model.evaluate(x_test, y_test)
 print(results)
 
-results2 = model.predict(x_test[:10])
-print(results2)
-print(test_labels[:10])
+# results2 = model.predict(x_test[:10])
+# print(results2)
+# print(test_labels[:10])
