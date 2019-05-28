@@ -1,6 +1,5 @@
 import os
 import numpy as np
-import matplotlib.pyplot as plt
 from keras import models, layers, optimizers, losses, activations
 from callback_helper import generate_callbacks
 import pandas as pd
