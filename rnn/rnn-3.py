@@ -152,8 +152,7 @@ test_steps = (len(float_data) - 300001 - lookback) // batch_size
 
 model = models.Sequential()
 
-model.add(layers.Flatten(input_shape=(lookback // step, float_data.shape[-1])))
-model.add(layers.Dense(32, activation=activations.relu))
+model.add(layers.GRU(32, input_shape=(None, float_data.shape[-1])))
 model.add(layers.Dense(1))
 
 model.compile(optimizer=optimizers.RMSprop(), loss=losses.mae)
