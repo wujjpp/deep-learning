@@ -1,6 +1,9 @@
 from keras import models, optimizers, losses, layers, activations, callbacks, Input
 import numpy as np
 from keras.layers import InputLayer
+from keras import backend as K
+from keras.layers import Layer
+import keras
 
 
 class ActivationLogger(callbacks.Callback):
@@ -21,11 +24,37 @@ class ActivationLogger(callbacks.Callback):
         validation_sample = self.validation_data[0][0:1]
 
         activations = self.activation_model.predict(validation_sample)
-        for i, activation in enumerate(activations):
+        for layer_name, activation in zip(self.layer_names, activations):
             print(
                 '\n\n--------------------{0} outputs(shape: {1})--------------------'
-                .format(self.layer_names[i], activation.shape))
+                .format(layer_name, activation.shape))
             print(activation)
+
+
+class MyLayer(Layer):
+    def __init__(self, output_dim, **kwargs):
+        self.output_dim = output_dim
+        super(MyLayer, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        # Create a trainable weight variable for this layer.
+        self.kernel = self.add_weight(name='kernel',
+                                      shape=(input_shape[1], self.output_dim),
+                                      initializer='uniform',
+                                      trainable=True)
+
+        # self.b = self.add_weight(name='b',
+        #                          shape=(self.output_dim),
+        #                          initializer=keras.initializers.,
+        #                          trainable=True)
+        super(MyLayer,
+              self).build(input_shape)  # Be sure to call this at the end
+
+    def call(self, x):
+        return K.dot(x, self.kernel)
+
+    def compute_output_shape(self, input_shape):
+        return (input_shape[0], self.output_dim)
 
 
 sample_num = 1000
@@ -54,14 +83,15 @@ x = layers.Conv2D(filters=8,
 # 池化层
 x = layers.MaxPooling2D(pool_size=(2, 2), strides=6, name="maxpooling-1")(x)
 
+x = layers.Flatten(name='flatten-2')(x)
+x = MyLayer(10)(x)
+
 # # 转换成Embedding层需要的格式
-# x = layers.Flatten(name='flatten-2')(x)
 
 # x = layers.Dense(100, name='for_fix_issue', activation=activations.relu)(x)
-
 # x = layers.Embedding(1024, 64, input_length=100)(x)
 
-x = layers.Flatten(name='flatten-last')(x)
+# x = layers.Flatten(name='flatten-last')(x)
 
 x = layers.Dense(1, activation=activations.sigmoid, name='dense_1')(x)
 
