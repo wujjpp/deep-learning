@@ -19,6 +19,7 @@ loss = tf.reduce_sum(tf.square(linear_model - y))
 
 # 创建一个梯度下降优化器，学习率为0.001
 optimizer = tf.train.GradientDescentOptimizer(0.001)
+# optimizer = tf.train.AdamOptimizer()
 
 train = optimizer.minimize(loss)
 

@@ -4,6 +4,11 @@ from keras.layers import InputLayer
 from keras import backend as K
 from keras.layers import Layer
 import keras
+import tensorflow as tf
+
+print(tf.__version__)
+print(tf.keras.__version__)
+print(keras.__version__)
 
 
 class ActivationLogger(callbacks.Callback):

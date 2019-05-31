@@ -6,14 +6,12 @@ def model_fn(features, labels, mode):
     # 构建线性模型
     W = tf.get_variable('W', [1], dtype=tf.float64)
     b = tf.get_variable('b', [1], dtype=tf.float64)
-
     y = W * features['x'] + b
 
     loss = tf.reduce_sum(tf.square(y - labels))
+    optimizer = tf.train.GradientDescentOptimizer(0.001)
 
     global_step = tf.train.get_global_step()
-
-    optimizer = tf.train.GradientDescentOptimizer(0.001)
 
     train = tf.group(optimizer.minimize(loss), tf.assign_add(global_step, 1))
 
@@ -54,10 +52,10 @@ val_input_fn = tf.estimator.inputs.numpy_input_fn({'x': x_val},
 # 训练模型
 estimator.train(input_fn=train_input_fn, steps=1000)
 
-# 使用训练数据评估模型，目的查看训练结果, 这边使用的训练数据，Keras从训练数据中分离一部分数据作为验证数据
-train_metrics = estimator.evaluate(input_fn=train_input_fn2)
-print('train_metrics:', train_metrics)
+# # 使用训练数据评估模型，目的查看训练结果, 这边使用的训练数据，Keras从训练数据中分离一部分数据作为验证数据
+# train_metrics = estimator.evaluate(input_fn=train_input_fn2)
+# print('train_metrics:', train_metrics)
 
-# 使用评估数据评估模型，目的是验证模型泛化性能，对应Keras中的测试数据
-val_metrics = estimator.evaluate(input_fn=val_input_fn)
-print('val_metrics:', val_metrics)
+# # 使用评估数据评估模型，目的是验证模型泛化性能，对应Keras中的测试数据
+# val_metrics = estimator.evaluate(input_fn=val_input_fn)
+# print('val_metrics:', val_metrics)
