@@ -36,9 +36,11 @@ pred = tf.nn.softmax(tf.matmul(x, W)+b)
 # Minimize error using cross entropy
 loss = tf.reduce_mean(-tf.reduce_sum(y * tf.log(pred), reduction_indices=1))
 
+# 计算梯度
 W_grad = -tf.matmul(tf.transpose(x), y - pred)
 b_grad = -tf.reduce_mean(tf.matmul(tf.transpose(x), y - pred), reduction_indices=0)
 
+# 梯度下降
 new_W = W.assign(W - learning_rate * W_grad)
 new_b = b.assign(b - learning_rate * b_grad)
 
