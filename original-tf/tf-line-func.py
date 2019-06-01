@@ -36,16 +36,14 @@ loss = tf.reduce_sum(tf.square(linear_model - y))
 
 # 创建一个梯度下降优化器，学习率为0.001
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.0001)
-# optimizer = tf.train.AdamOptimizer()
 
 train = optimizer.minimize(loss)
-
 
 # 初始化变量
 init = tf.global_variables_initializer()
 
 # 训练10000次
-epochs = 20000
+epochs = 10000
 with tf.Session() as sess:
     sess.run(init)
     with Bar('Processing', max=epochs) as bar:
