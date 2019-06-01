@@ -19,5 +19,6 @@ init = tf.global_variables_initializer()
 epochs = 2
 with tf.Session() as sess:
     sess.run(init)
-    writer = tf.summary.FileWriter('results', sess.graph)
+    writer = tf.summary.FileWriter('results')
+    writer.add_graph(sess.graph)
     writer.close()

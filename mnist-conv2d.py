@@ -6,6 +6,7 @@ from keras.utils import to_categorical
 from keras import optimizers
 from keras import losses
 import matplotlib.pyplot as plt
+from keras import callbacks
 
 
 def build_model_1():
@@ -77,7 +78,9 @@ history = model.fit(data_train_images,
                     data_train_labels,
                     epochs=5,
                     batch_size=64,
-                    validation_data=(val_images, val_labels))
+                    validation_data=(val_images, val_labels),
+                    callbacks=[callbacks.TensorBoard(log_dir='results')]
+                    )
 
 results = model.evaluate(test_images, test_labels)
 print(results)

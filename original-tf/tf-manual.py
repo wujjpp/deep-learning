@@ -1,4 +1,6 @@
 import tensorflow as tf
+tf.nn.convolution()
+
 
 # 创建变量W, b
 W = tf.Variable([.1], dtype=tf.float32)
