@@ -9,7 +9,7 @@ b = tf.Variable([-.1], dtype=tf.float32)
 x = tf.placeholder(tf.float32)
 
 # 这个就是模型函数
-linear_model = W * x + b
+linear_model = x * W + b
 
 # 创建y节点，用来输入y_train[n]
 y = tf.placeholder(tf.float32)
