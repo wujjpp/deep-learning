@@ -33,7 +33,7 @@ Trainable params: 1,905
 Non-trainable params: 0
 _________________________________________________________________
 
-Note: 
+Param Count: 
     layer-1:
         input shape:  (100, )
         output shape: (16, )
