@@ -61,7 +61,6 @@ with tf.Session() as sess:
         if (epoch + 1) % display_step == 0:
             print("Epoch:", '%04d' % (epoch + 1), "lost=", "{:.9f}".format(avg_cost))
 
-
     # test
     acc = tf.reduce_mean(tf.cast(tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1)), tf.float32))
 
