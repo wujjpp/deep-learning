@@ -21,6 +21,7 @@ loss = tf.reduce_sum(tf.square(linear_model - y))
 optimizer = tf.train.GradientDescentOptimizer(0.001)
 # optimizer = tf.train.AdamOptimizer()
 
+# train op
 train = optimizer.minimize(loss)
 
 # 训练数据
