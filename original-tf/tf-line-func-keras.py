@@ -1,9 +1,12 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
+# import pandas as pd
+
 
 def func(x):
     return 3 * x + (2 + (0.125 - np.random.random() / 8.))
+
 
 def prepare_train_data():
     x_train = np.random.random_sample(size=1000)
@@ -12,6 +15,11 @@ def prepare_train_data():
 
 
 x_train, y_train = prepare_train_data()
+
+# dataset = pd.DataFrame({'x': x_train, 'y': y_train})
+# print(dataset.head(n=10))
+# print(dataset.tail(n=10))
+
 
 num_epochs = 250
 
