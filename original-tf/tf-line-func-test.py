@@ -35,7 +35,6 @@ def fit():
 print('最小二乘解： ', fit())
 
 
-
 plt.plot(x_train[:200], y_train[:200], 'bo')
 
 # 创建变量W, b
