@@ -49,14 +49,9 @@ with tf.Session() as sess:
 
     sess.run(init)
 
-    with tf.summary.FileWriter('results') as writer:
-        writer.add_graph(sess.graph)
-
-    exit()
-
     with Bar('Processing', max=epochs) as bar:
         for i in range(epochs):
-            sess.run(train, feed_dict={x: x_train, y: y_train})
+            sess.run([train], feed_dict={x: x_train, y: y_train})
             bar.next()
 
     r_W, r_b, r_loss = sess.run([W, b, loss], {x: x_train, y: y_train})
