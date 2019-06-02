@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 def func(x):
     return 3.1 * x + (2 + (0.125 - np.random.random() / 8.))
+    # return 3.1 * x + 2
 
 
 def prepare_train_data():
@@ -19,8 +20,8 @@ x_train, y_train = prepare_train_data()
 plt.plot(x_train[:200], y_train[:200], 'bo')
 
 # 创建变量W, b
-W = tf.Variable(.1, dtype=tf.float32)
-b = tf.Variable(-.1, dtype=tf.float32)
+W = tf.Variable(.1, dtype=tf.float32, name='W')
+b = tf.Variable(-.1, dtype=tf.float32, name='b')
 
 # 创建x节点，用来输入x_train[n]
 x = tf.placeholder(tf.float32)
@@ -32,23 +33,27 @@ linear_model = x * W + b
 y = tf.placeholder(tf.float32)
 
 # 创建损失函数，用于评估模型输出值与期望值差距
-loss = tf.reduce_sum(tf.square(linear_model - y))
+loss = tf.math.reduce_sum(tf.math.square(linear_model - y))
 
-# 创建一个梯度下降优化器，学习率为0.001
+# 创建一个梯度下降优化器，学习率为0.001,通过 optimizer + loss 获取到每个变量的，然后应用到变量
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.0001)
-train = optimizer.minimize(loss)
-
-# optimizer.minimize 可以转换成下面两行
-# gradients = optimizer.compute_gradients(loss)
-# train = optimizer.apply_gradients(gradients)
+gradients = optimizer.compute_gradients(loss)
+train = optimizer.apply_gradients(gradients)
 
 # 初始化变量
 init = tf.global_variables_initializer()
 
 # 训练10000次
-epochs = 10000
+epochs = 5000
 with tf.Session() as sess:
+
     sess.run(init)
+
+    with tf.summary.FileWriter('results') as writer:
+        writer.add_graph(sess.graph)
+
+    exit()
+
     with Bar('Processing', max=epochs) as bar:
         for i in range(epochs):
             sess.run(train, feed_dict={x: x_train, y: y_train})

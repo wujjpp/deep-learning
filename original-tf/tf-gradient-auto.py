@@ -47,8 +47,6 @@ init = tf.global_variables_initializer()
 with tf.Session() as sess:
     sess.run(init)
 
-
-
     for epoch in range(training_epochs):
         avg_cost = 0.
 
