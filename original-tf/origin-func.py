@@ -1,3 +1,5 @@
+# -*-coding:utf-8-*-
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -10,8 +12,6 @@ a * 3 + b * 4 + c * 9 = 12 + 20 + 54 = 86
 a = 1/5 * (-a * 0 - b * 3 - c * 3 + 53)
 b = 1/7 * (-a * 2 - b * 0 - c * 2 + 55)
 c = 1/9 * (-a * 3 - b * 4 - c * 0 + 86)
-
-
 
 a  |   0    -3/5   -3/5  |  53/5
 b  |  -2/7     0   -2/7  |  55/7
@@ -61,6 +61,7 @@ while True:
     metrics.append(mse)
     if mse < e:
         break
+
 
 print(expect)
 
