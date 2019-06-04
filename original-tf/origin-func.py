@@ -20,7 +20,7 @@ c  |  -3/9  -4/9      0  |  86/9
 '''
 
 # 精确求解
-A = np.asarray(
+W = np.asarray(
     [
         [5, 3, 3],
         [2, 7, 2],
@@ -28,7 +28,7 @@ A = np.asarray(
     ], dtype='float64'
 )
 b = np.asarray([53, 55, 86], dtype='float64')
-result = np.linalg.solve(A, b)
+result = np.linalg.solve(W, b)
 print(result)
 
 # 迭代求解
