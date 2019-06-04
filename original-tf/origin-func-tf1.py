@@ -31,11 +31,12 @@ y = tf.placeholder(dtype=tf.float64, name='y')
 model = x * W + b
 
 learning_rate = 0.001
+N = float(len(x_train))
 
 # w_error = x * (y - W * x - b) ->
-W_gradient = -tf.reduce_sum(x * (y - W * x - b))
+W_gradient = tf.reduce_sum(-2/N * x * (y - W * x - b))
 # b_error = y - W * x - b -> 我们期望这个计算值为0，当W的值趋于真实结果的时候，这个等式计算结果趋于0
-b_gradient = -tf.reduce_sum(y - W * x - b)
+b_gradient = tf.reduce_sum(-2/N * (y - W * x - b))
 
 new_W = W.assign(W - learning_rate * W_gradient)
 new_b = b.assign(b - learning_rate * b_gradient)
@@ -55,7 +56,7 @@ with tf.Session() as sess:
     with Bar('Training', max=epochs/steps) as bar:
 
         for i in range(epochs):
-            new_W_r, new_b_r = sess.run([new_W, new_b], feed_dict={x: x_train, y: y_train})
+            new_W_r, new_b_r = sess.run([new_W, new_b, W_gradient, b_gradient], feed_dict={x: x_train, y: y_train})
 
             k += 1
 
