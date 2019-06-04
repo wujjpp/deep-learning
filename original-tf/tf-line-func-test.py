@@ -20,7 +20,7 @@ def prepare_train_data():
 x_train, y_train = prepare_train_data()
 
 
-# 存数学公式推导： 最小二乘解
+# 数学公式推导： 最小二乘解
 def fit():
     mean_of_x = x_train.mean()
     mean_of_y = y_train.mean()
@@ -31,6 +31,7 @@ def fit():
     W = (mean_of_xy - (mean_of_x * mean_of_y)) / (mean_of_xx - mean_of_x * mean_of_x)
     b = mean_of_y - W * mean_of_x
     return W, b
+
 
 print('最小二乘解： ', fit())
 
