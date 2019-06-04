@@ -33,9 +33,9 @@ model = x * W + b
 learning_rate = 0.001
 
 # w_error =
-W_gradient = -tf.reduce_sum(x*(y - W*x - b))
+W_gradient = -tf.reduce_sum(x * (y - W * x - b))
 # b_error = y - W * x - b -> 我们期望这个计算值为0，当W的值趋于真实结果的时候，这个等式计算结果趋于0
-b_gradient = -tf.reduce_sum((y - W * x - b))
+b_gradient = -tf.reduce_sum(y - W * x - b)
 
 new_W = W.assign(W - learning_rate * W_gradient)
 new_b = b.assign(b - learning_rate * b_gradient)
@@ -62,7 +62,7 @@ with tf.Session() as sess:
             if k % steps == 0:
                 bar.next()
 
-    result = sess.run(model, feed_dict={x: 5})
+    result = sess.run(model, feed_dict={x: 4})
 
     print(result)
 
