@@ -32,7 +32,7 @@ model = x * W + b
 
 learning_rate = 0.001
 
-# w_error =
+# w_error = x * (y - W * x - b) ->
 W_gradient = -tf.reduce_sum(x * (y - W * x - b))
 # b_error = y - W * x - b -> 我们期望这个计算值为0，当W的值趋于真实结果的时候，这个等式计算结果趋于0
 b_gradient = -tf.reduce_sum(y - W * x - b)
