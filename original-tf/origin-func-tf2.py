@@ -20,7 +20,7 @@ y = tf.placeholder(dtype=tf.float64, name='y')
 model = x * W + b
 
 # 计算损失函数
-loss = tf.sqrt(tf.reduce_sum(tf.square(model - y)))
+loss = tf.sqrt(tf.reduce_sum(tf.square(y - model)))
 
 train = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
 

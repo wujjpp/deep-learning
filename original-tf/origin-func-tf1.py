@@ -33,7 +33,7 @@ N = float(len(x_train))
 # Σ -2/N * (y - (x * W + b))  ->  下面的迭代可以将这个值逼向0
 b_gradient = tf.reduce_sum(-2/N * (y - model))
 # Σ -2/N * x * (y - (W * x + b)) -> 下面的迭代可以将这个值逼向0
-W_gradient = tf.reduce_sum(-2/N * x * (y - model))
+W_gradient = tf.reduce_sum(-2/N * (y - model) * x)
 
 # 梯度下降
 new_b = b.assign(b - learning_rate * b_gradient)
