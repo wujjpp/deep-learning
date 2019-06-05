@@ -22,7 +22,10 @@ model = x * W + b
 # 计算损失函数
 loss = tf.sqrt(tf.reduce_sum(tf.square(y - model)))
 
-train = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001)
+grads = optimizer.compute_gradients(loss)
+train = optimizer.apply_gradients(grads)
+# train = tf.train.GradientDescentOptimizer(learning_rate=0.001).minimize(loss)
 
 # 初始化变量
 init = tf.global_variables_initializer()
@@ -38,8 +41,8 @@ with tf.Session() as sess:
     with Bar('Training', max=epochs/steps) as bar:
 
         for i in range(epochs):
-            _, mae = sess.run([train, loss], feed_dict={x: x_train, y: y_train})
-
+            _, mae, grad_r = sess.run([train, loss, grads], feed_dict={x: x_train, y: y_train})
+            print(grad_r)
             k += 1
 
             if k % steps == 0:

@@ -35,6 +35,10 @@ b_gradient = tf.reduce_sum(-2/N * (y - model))
 # Σ -2/N * x * (y - (W * x + b)) -> 下面的迭代可以将这个值逼向0
 W_gradient = tf.reduce_sum(-2/N * (y - model) * x)
 
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001)
+optimizer.compute_gradients(loss)
+
+
 # 梯度下降
 new_b = b.assign(b - learning_rate * b_gradient)
 new_W = W.assign(W - learning_rate * W_gradient)
