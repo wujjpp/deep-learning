@@ -37,7 +37,7 @@ W = np.asarray(
     ], dtype='float32'
 )
 
-b = np.asarray([35/5., 43/7.], dtype='float64')
+b = np.asarray([35./5., 43/7.], dtype='float64')
 
 '''
 | a |
